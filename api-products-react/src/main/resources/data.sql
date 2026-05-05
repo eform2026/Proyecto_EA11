@@ -1,7 +1,7 @@
 INSERT INTO users (name, username, email, password, role, created_at, updated_at)
 SELECT 'admin', 'admin', 'admin@sena.edu.co',
        '$2b$10$uNjp2NXJ6kkTAdcPhV0LD.8Ek4LweekLrtby90i1Ohs2xFkIP3Amm',
-       'admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+       'ROLE_ADMIN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'admin@sena.edu.co');
 
 INSERT INTO products (nombre, descripcion, precio, stock, is_deleted, created_at, updated_at)

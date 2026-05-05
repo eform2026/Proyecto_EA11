@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger LOGGER = Logger.getLogger(GlobalExceptionHandler.class.getName());
 
     /** 404 - Recurso no encontrado. */
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -109,6 +113,8 @@ public class GlobalExceptionHandler {
     /** 500 - Fallback para cualquier otra excepción no contemplada. */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGeneric(Exception ex, HttpServletRequest req) {
+        LOGGER.log(Level.SEVERE, "Error inesperado en " + req.getRequestURI(), ex);
+
         ApiError error = ApiError.of(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Internal Server Error",
