@@ -103,7 +103,7 @@ Instructor: **Jeyson David Zúñiga Gómez**.
 ### 1) Copiar el .env
 
 ```bash
-cp .env.example .env
+cp .env .env
 ```
 
 Editar `.env` y completar credenciales de la base de datos. Cambiar también `JWT_SECRET` en producción (mínimo 256 bits en Base64).

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(name = "uk_users_username", columnNames = "username"),
         @UniqueConstraint(name = "uk_users_email", columnNames = "email")
 })
 @Getter
@@ -27,9 +26,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(nullable = false, length = 60)
+    @Column(name = "name", nullable = false, length = 120)
+    private String name;
+
+    @Column(name = "username", length = 120)
     private String username;
 
     @Column(nullable = false, length = 120)
@@ -38,9 +40,14 @@ public class User {
     @Column(nullable = false, length = 100)
     private String password;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "reset_token", length = 120)
+    private String resetToken;
+
+    @Column(name = "reset_token_expires_at")
+    private LocalDateTime resetTokenExpiresAt;
+
     @Column(nullable = false, length = 20)
-    private Role role;
+    private String role;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)
@@ -49,4 +56,16 @@ public class User {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    @PreUpdate
+    public void syncUsername() {
+        if (username == null || username.isBlank()) {
+            username = name;
+        }
+    }
+
+    public String getSpringRole() {
+        return "admin".equalsIgnoreCase(role) ? "ROLE_ADMIN" : "ROLE_USER";
+    }
 }

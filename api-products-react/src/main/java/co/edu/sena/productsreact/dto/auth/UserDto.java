@@ -1,6 +1,8 @@
 package co.edu.sena.productsreact.dto.auth;
 
 public record UserDto(
-        String username
+        String name,
+        String email,
+        String role
 ) {
 }

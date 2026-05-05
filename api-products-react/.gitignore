@@ -18,11 +18,10 @@ Thumbs.db
 
 # Environment
 .env
-!.env.example
 
 # Logs
 *.log
 logs/
 
 # Maven
-.mvn/wrapper/maven-wrapper.jar
+.m2/

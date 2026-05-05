@@ -1,8 +1,8 @@
-INSERT INTO users (username, email, password, role, created_at, updated_at)
-SELECT 'admin', 'admin@sena.edu.co',
+INSERT INTO users (name, username, email, password, role, created_at, updated_at)
+SELECT 'admin', 'admin', 'admin@sena.edu.co',
        '$2b$10$uNjp2NXJ6kkTAdcPhV0LD.8Ek4LweekLrtby90i1Ohs2xFkIP3Amm',
-       'ROLE_ADMIN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
-WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin');
+       'admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'admin@sena.edu.co');
 
 INSERT INTO products (nombre, descripcion, precio, stock, is_deleted, created_at, updated_at)
 SELECT 'Teclado Mecánico', 'Teclado mecánico RGB con switches azules', 180000.00, 15, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP

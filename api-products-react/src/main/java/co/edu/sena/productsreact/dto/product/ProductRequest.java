@@ -22,6 +22,9 @@ public record ProductRequest(
 
         @NotNull(message = "El stock es obligatorio")
         @PositiveOrZero(message = "El stock no puede ser negativo")
-        Integer stock
+        Integer stock,
+
+        @Size(max = 1000, message = "La URL de la imagen no puede superar los 1000 caracteres")
+        String imageUrl
 ) {
 }
