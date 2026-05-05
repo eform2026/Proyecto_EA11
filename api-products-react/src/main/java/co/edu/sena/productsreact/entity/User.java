@@ -63,11 +63,22 @@ public class User {
         if (username == null || username.isBlank()) {
             username = name;
         }
-        role = normalizeRole(role);
+        role = normalizeStoredRole(role);
     }
 
     public String getSpringRole() {
         return normalizeRole(role);
+    }
+
+    private String normalizeStoredRole(String value) {
+        if (value == null || value.isBlank()) {
+            return "cliente";
+        }
+
+        return switch (value.trim().toUpperCase()) {
+            case "ADMIN", "ROLE_ADMIN" -> "admin";
+            default -> "cliente";
+        };
     }
 
     private String normalizeRole(String value) {
