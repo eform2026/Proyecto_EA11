@@ -12,9 +12,13 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class EmailService {
+
+    private static final Logger LOGGER = Logger.getLogger(EmailService.class.getName());
 
     @Value("${app.mail.enabled:false}")
     private boolean mailEnabled;
@@ -41,7 +45,8 @@ public class EmailService {
             sendSmtpMessage(toEmail, resetLink);
             return true;
         } catch (IOException ex) {
-            throw new IllegalStateException("No se pudo enviar el correo de recuperacion", ex);
+            LOGGER.log(Level.WARNING, "No se pudo enviar el correo de recuperacion", ex);
+            return false;
         }
     }
 
